@@ -64,4 +64,6 @@ htmlcov/
 students.json
 report.txt
 _screenshots/
+*.docx
+~$*
 
