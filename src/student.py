@@ -120,14 +120,13 @@ class Student:
         """Восстановить студента из словаря (например, из JSON)."""
         if not isinstance(data, dict):
             raise ValidationError("Запись студента должна быть словарём")
-        student = cls(
+        return cls(
             record_id=data.get("record_id"),
             full_name=data.get("full_name"),
             group=data.get("group"),
             course=data.get("course"),
+            grades=data.get("grades"),
         )
-        student.grades = list(data.get("grades") or [])
-        return student
 
     def __eq__(self, other):
         if not isinstance(other, Student):
