@@ -33,10 +33,19 @@ class StudentRegistry:
         return student
 
     def add_many(self, students):
-        """Добавить пакет студентов (например, приказ о зачислении)."""
-        students = list(students)
+        """Атомарно добавить пакет студентов (приказ о зачислении)."""
+        students = [self._ensure_student(s) for s in students]
+        seen = set(self._students)
         for student in students:
-            self.add(student)
+            if student.record_id in seen:
+                raise DuplicateStudentError(
+                    "Студент с зачёткой {0} уже есть".format(
+                        student.record_id
+                    )
+                )
+            seen.add(student.record_id)
+        for student in students:
+            self._students[student.record_id] = student
         return len(students)
 
     def get(self, record_id):

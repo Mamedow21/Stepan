@@ -20,7 +20,9 @@
 | `src/storage.py` | JSON-хранилище (атомарная запись) |
 | `src/report.py` | аналитические отчёты |
 | `src/main.py` | консольный конвейер |
-| `tests/` | модульные и интеграционные тесты |
+| `tests/` | модульные и интеграционные тесты (`unittest`) |
+| `docs/` | план, протокол, метрики, ревью и сравнение методов тестирования |
+| `.github/workflows/testing.yml` | CI: flake8, unittest, coverage на Python 3.11–3.13 |
 
 ## Запуск
 
@@ -35,3 +37,8 @@ python -m unittest discover -s tests -v
 python -m coverage run --branch --source=src -m unittest discover -s tests
 python -m coverage report --show-missing
 ```
+
+Я разработал 83 теста на `unittest` (анализ причинно-следственных связей
+`C1..C8 → E1..E8`, эквивалентное разбиение, граничные значения),
+нашёл и исправил дефекты BR-01 и BR-02. Покрытие с учётом ветвей — 99 %,
+`flake8` — 0 замечаний. Подробности — в каталоге `docs/`.
